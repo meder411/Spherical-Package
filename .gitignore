@@ -22,5 +22,5 @@ dist
 # Ignore pytest cache
 .pytest_cache
 
-# Ignore clang
-clang
+# Ignore clang stuff
+*clang*
