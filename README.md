@@ -47,7 +47,7 @@ CGAL and OpenEXR can be installed via aptitude:
 sudo apt install libcgal-dev libopenexr-dev
 ```
 
-Once these packages are installed, you can install the Python dependencies with:
+Once these packages are installed, you can should the Python dependencies. I recommend using a conda or virtualenv environment at the very least. All of this code expects Python3.6+. Once you have your environment activated, install the Python dependencies with:
 
 ```
 pip install -r requirements.txt
@@ -60,3 +60,16 @@ python setup.py build -j 4
 python setup.py install
 ```
 Note that you can adjust the number after  `-j`  according to the number of cores available to your machine. It parallelizes compilation.
+
+
+## Testing the Install
+
+Not everything is unit tested, but there is a suite of unit tests associated with the mapped convolution operations and the resampling operations, which underpin most of the other code. To ensure that everything is set up properly, you can run:
+
+```
+pytest tests/
+```
+
+All 52 tests should pass. If CUDA is not available on your system, the CUDA tests will be skipped. In that case the output should read "26 passed, 26 skipped."
+
+For any further tests, you should run the examples in whichever application repository you are using ([Mapped Convolutions](https://github.com/meder411/MappedConvolutions) or [Tangent Images](https://github.com/meder411/Tangent-Images)).
