@@ -30,7 +30,16 @@ This package requires 3 non-Python dependencies: [Eigen](http://eigen.tuxfamily.
 
 Unfortunately, the most recent version of Eigen as of this release (3.3.7) doesn't support some GPU operations. As a result, you'll need to install Eigen from source to run the distortion module.
 
-Instructions for an Eigen source install [can be found here](http://eigen.tuxfamily.org/index.php?title=Main_Page#Download).
+To install Eigen from source, first navigate to the desired directory and then run the following commands:
+
+```
+git clone https://gitlab.com/libeigen/eigen.git \
+    && cd eigen \
+    && mkdir build \
+    && cd build \
+    && cmake .. \
+    && make install
+```
 
 CGAL and OpenEXR can be installed via aptitude:
 
