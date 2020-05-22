@@ -1,6 +1,6 @@
 # Spherical Distortion Package
 
-**Version: version='1.0.1'**
+**Version: 1.0.1**
 
 This repository contains the backend code for [Mapped Convolutions](https://github.com/meder411/MappedConvolutions) and [Tangent Images](https://github.com/meder411/Tangent-Images). Is it installable as Python package, and is built around PyTorch. The mapped convolution operations as well as the resampling operations for tangent images are written in a mix of C++ and CUDA and wrapped as PyTorch modules,
 
