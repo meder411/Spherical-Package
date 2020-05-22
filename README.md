@@ -10,7 +10,7 @@ To use this package there are a few dependencies. Most of them are Python-based,
 
 ### Quick-start with Docker 
 
-A Dockerfile is provided for any use who have Docker set up. This file assumes that you have `nvidia-docker` set up.
+A [`Dockerfile`](https://github.com/meder411/spherical-package/blob/master/Dockerfile) is provided for any use who have Docker set up. This file assumes that you have `nvidia-docker` set up.
 
 To build the docker container, run:
 
@@ -26,11 +26,11 @@ bash docker_run.sh
 
 ### Manual set up
 
-This package requires 3 non-Python dependencies: Eigen, CGAL, and OpenEXR.
+This package requires 3 non-Python dependencies: [Eigen](http://eigen.tuxfamily.org/index.php?title=Main_Page), [CGAL](https://www.cgal.org/), and [OpenEXR](https://www.openexr.com/).
 
 Unfortunately, the most recent version of Eigen as of this release (3.3.7) doesn't support some GPU operations. As a result, you'll need to install Eigen from source to run the distortion module.
 
-Instructions for Eigen source install can be found here.
+Instructions for an Eigen source install [can be found here](http://eigen.tuxfamily.org/index.php?title=Main_Page#Download).
 
 CGAL and OpenEXR can be installed via aptitude:
 
