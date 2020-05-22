@@ -23,3 +23,6 @@ dist
 
 # Ignore clang stuff
 *clang*
+
+# Ignore bumpversion stuff
+.bumpversion.cfg
