@@ -16,7 +16,6 @@ dist
 *.png
 *.pdf
 *.tiff
-*.txt
 *.pth
 
 # Ignore pytest cache

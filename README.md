@@ -10,7 +10,7 @@ To use this package there are a few dependencies. Most of them are Python-based,
 
 ### Quick-start with Docker 
 
-A [`Dockerfile`](https://github.com/meder411/spherical-package/blob/master/Dockerfile) is provided for any use who have Docker set up. This file assumes that you have `nvidia-docker` set up.
+A [`Dockerfile`](https://github.com/meder411/spherical-package/blob/master/Dockerfile) is provided for any users who have Docker set up. This file assumes that you have `nvidia-docker` set up.
 
 To build the docker container, run:
 

@@ -1,0 +1,14 @@
+torch
+torchvision
+numpy
+matplotlib
+scikit-image
+visdom
+plyfile
+opencv-python==3.4.2.17
+opencv-contrib-python==3.4.2.17
+yacs
+ipdb
+openexr
+tqdm
+pytest
