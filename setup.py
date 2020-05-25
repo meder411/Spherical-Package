@@ -5,7 +5,7 @@ import pathlib
 from setuptools import setup
 from torch.utils.cpp_extension import BuildExtension, CUDAExtension, CppExtension
 
-module = 'tangent-images'  # ['tangent-images', 'mapped-conv']
+module = 'mapped-conv'  # ['tangent-images', 'mapped-conv']
 compute_arch = 'compute_61'  # Compute architecture for GPU
 use_ninja = False  # [True, False]
 additional_includes = []  # List of any additional include directories
