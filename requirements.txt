@@ -12,3 +12,4 @@ ipdb
 openexr
 tqdm
 pytest
+ninja
