@@ -13,7 +13,7 @@ To use this package there are a few dependencies. Most of them are Python-based,
 
 Before you go about installing anything, you can tweak a few parameters in [`setup.py`](./setup.py). Namely:
 
-* `module`: should be either `'tangent_images'` or `'mapped_conv'`. The former will only install the necessary backend for the tangent images project, while the latter will install everything. Defaults to `mapped_conv`.
+* `module`: should be either `'tangent-images'` or `'mapped-conv'`. The former will only install the necessary backend for the tangent images project, while the latter will install everything. Defaults to `mapped-conv`.
 * `use_ninja`: defaults to `False`, but you can set it to `True` if you want to install using the faster `ninja` build system instead of the standard `setuptools`.
 * `compute_arch`: should be changed according to your GPU settings. The default should work for most modern GPUs.
 * `additional_includes`: use this if you install any of the dependencies to unsual locations.
