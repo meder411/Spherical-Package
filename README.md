@@ -2,7 +2,7 @@
 
 **Version: 1.0.0**
 
-This repository contains the backend code for [Mapped Convolutions](https://github.com/meder411/MappedConvolutions) and [Tangent Images](https://github.com/meder411/Tangent-Images). Is it installable as Python package, and is built around PyTorch. The mapped convolution operations as well as the resampling operations for tangent images are written in a mix of C++ and CUDA and wrapped as PyTorch modules,
+This repository contains the backend code for [Mapped Convolutions](https://github.com/meder411/MappedConvolutions) and [Tangent Images](https://github.com/meder411/Tangent-Images). Is it installable as Python package, and is built around PyTorch. The mapped convolution operations as well as the resampling operations for tangent images are written in a mix of C++ and CUDA and wrapped as PyTorch modules.
 
 
 ## Requirements and Installation
@@ -58,7 +58,7 @@ CGAL and OpenEXR can be installed via aptitude:
 sudo apt install libcgal-dev libopenexr-dev
 ```
 
-Once these packages are installed, you can should the Python dependencies. I recommend using a conda or virtualenv environment at the very least. All of this code expects Python3.6+. Once you have your environment activated, install the Python dependencies with:
+Once these packages are installed, you can should the Python dependencies. I recommend using a conda or virtualenv environment at the very least. All of this code expects Python3.6+ and PyTorch >1.4.0. Once you have your environment activated, install the Python dependencies with:
 
 ```
 pip install -r requirements.txt
