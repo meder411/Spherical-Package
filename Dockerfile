@@ -50,6 +50,4 @@ RUN pip3 install torch \
 COPY . /package
 RUN cd /package \
     && python3 setup.py build -j 12 \
-    && python3 setup.py install \
-    && cd .. \
-    && rm -r /package
+    && python3 setup.py install
