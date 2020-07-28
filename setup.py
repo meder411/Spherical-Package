@@ -201,7 +201,7 @@ if module == 'mapped-conv':
 
 setup(
     name='Spherical Distortion',
-    version='1.0.2',
+    version='1.0.3',
     author='Marc Eder',
     author_email='meder@cs.unc.edu',
     description=
