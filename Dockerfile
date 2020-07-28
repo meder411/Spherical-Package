@@ -42,7 +42,8 @@ RUN pip3 install torch \
     ipdb \
     openexr \
     tqdm \
-    pytest
+    pytest \
+    ninja
 
 # Install the package
 # Note: Not editable--Docker will have to be rebuilt for any changes to the package
