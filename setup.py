@@ -9,6 +9,7 @@ module = 'mapped-conv'  # ['tangent-images', 'mapped-conv']
 compute_arch = 'compute_61'  # Compute architecture for GPU
 use_ninja = False  # [True, False]
 additional_includes = []  # List of any additional include directories
+no_cuda = False # Use True/False here instead of torch.cuda.is_available() to allow CUDA build when building Docker container
 
 # Default search paths
 abs_path_here = pathlib.Path(__file__).parent.absolute()
@@ -29,7 +30,7 @@ def extension(name,
               nvcc_compile_args=[]):
     '''Create a build extension. Use CUDA if available, otherwise C++ only'''
 
-    if torch.cuda.is_available() and src_cuda_dir is not None:
+    if not no_cuda and src_cuda_dir is not None:
         return CUDAExtension(
             name=name,
             sources=[

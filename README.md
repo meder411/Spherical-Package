@@ -35,6 +35,8 @@ To run the environment, modify `docker_run.sh` as needed, and then run:
 bash docker_run.sh
 ```
 
+Note that when using the Docker setup, the contents of this repo are copied to `/package` inside the Docker container.
+
 ### Manual set up
 
 This package requires 3 non-Python dependencies: [Eigen](http://eigen.tuxfamily.org/index.php?title=Main_Page), [CGAL](https://www.cgal.org/), and [OpenEXR](https://www.openexr.com/).

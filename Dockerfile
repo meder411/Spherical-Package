@@ -46,7 +46,7 @@ RUN pip3 install torch \
 
 # Install the package
 # Note: Not editable--Docker will have to be rebuilt for any changes to the package
-COPY ./package /package
+COPY . /package
 RUN cd /package \
     && python3 setup.py build -j 12 \
     && python3 setup.py install \
