@@ -1,13 +1,14 @@
-from ..util import create_equirectangular_to_tangent_images_sample_map, create_tangent_images_to_equirectangular_uv_sample_map, tangent_image_dim, compute_num_faces
+from ..util import create_equirectangular_to_tangent_images_sample_map, create_tangent_images_to_equirectangular_uv_sample_map, tangent_image_dim, compute_num_faces, compute_icosahedron_face_mask
 from ..functional import unresample, uv_resample
 from ..layer_utils import InterpolationType
 
 
 def create_tangent_images(
-        input,  # [B] x C x H x W
-        base_order,
-        sample_order,
-        interpolation=InterpolationType.BISPHERICAL):
+    input,  # [B] x C x H x W
+    base_order,
+    sample_order,
+    interpolation=InterpolationType.BISPHERICAL,
+    return_mask=False):
 
     assert input.dim() in [3, 4], \
         'input must be a 3D or 4D tensor (input.dim() == {})'.format(input.dim())
@@ -25,16 +26,18 @@ def create_tangent_images(
     num_samples = tangent_image_dim(base_order, sample_order)
     tangent_images = tangent_images.view(*tangent_images.shape[:-1],
                                          num_samples, num_samples)
-
+    if return_mask:
+        return tangent_images, compute_icosahedron_face_mask(
+            base_order, sample_order)
     return tangent_images
 
 
 def tangent_images_to_equirectangular(
-        tangent_images,  # [B] x C x faces x D x D
-        image_shape,
-        base_order,
-        sample_order,
-        interpolation=InterpolationType.BILINEAR):
+    tangent_images,  # [B] x C x faces x D x D
+    image_shape,
+    base_order,
+    sample_order,
+    interpolation=InterpolationType.BILINEAR):
 
     assert tangent_images.dim() in [4, 5], \
         'tangent_images must be a 4D or 5D tensor (tangent_images.dim() == {})'.format(tangent_images.dim())

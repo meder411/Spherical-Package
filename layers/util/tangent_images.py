@@ -24,7 +24,9 @@ def tangent_image_dim(base_order, sample_order):
 
 def get_sampling_resolution(base_order):
     '''
-    After level 4, the vertex resolution comes pretty close to exactly halving at each subsequent order. This means we don't need to generate the sphere to compute the resolution. However, at lower levels of subdivision, we ought to compute the vertex resolution as it's not fixed.
+    This returns the angular resolution of the <base_order> - 1 icosahedron. Using b-1 ensures that the spatial extent of the tangent image will cover the entire triangular face.
+    
+    Note: After level 4, the vertex resolution comes pretty close to exactly halving at each subsequent order. This means we don't need to generate the sphere to compute the resolution. However, at lower levels of subdivision, we ought to compute the vertex resolution as it's not fixed.
     '''
     if base_order < 5:
         sampling_resolution = generate_icosphere(max(
