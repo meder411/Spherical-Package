@@ -6,7 +6,7 @@ import math
 from .conversions import *
 from .grids import *
 from .icosahedron_functions import *
-from .spherical_projections import forward_gnomonic_projection
+from .spherical_projections import forward_gnomonic_projection, inverse_gnomonic_projection
 from .util import points_in_triangle_2d
 import _spherical_distortion_ext._mesh as _mesh
 from _spherical_distortion_ext._enums import InterpolationType
@@ -25,7 +25,7 @@ def tangent_image_dim(base_order, sample_order):
 def get_sampling_resolution(base_order):
     '''
     This returns the angular resolution of the <base_order> - 1 icosahedron. Using b-1 ensures that the spatial extent of the tangent image will cover the entire triangular face.
-    
+
     Note: After level 4, the vertex resolution comes pretty close to exactly halving at each subsequent order. This means we don't need to generate the sphere to compute the resolution. However, at lower levels of subdivision, we ought to compute the vertex resolution as it's not fixed.
     '''
     if base_order < 5:
@@ -89,7 +89,7 @@ def tangent_images_spherical_sample_map(base_order, sample_order):
 
 
 def create_equirectangular_to_tangent_images_sample_map(
-        image_shape, base_order, sample_order):
+    image_shape, base_order, sample_order):
 
     assert sample_order >= base_order, 'Sample order must be greater than or equal to the base order ({} <{ })'.format(
         sample_order, base_order)
@@ -110,7 +110,7 @@ def create_equirectangular_to_tangent_images_sample_map(
 
 
 def create_tangent_images_to_equirectangular_uv_sample_map(
-        image_shape, base_order, sample_order):
+    image_shape, base_order, sample_order):
     # Create base icosphere
     icosphere = generate_icosphere(base_order)
 
@@ -200,8 +200,9 @@ def face_corners_on_tangent_images(base_order, sample_order, face_idx=None):
     # Project the face onto the image via forward gnomonic projection
     x_corners, y_corners = forward_gnomonic_projection(
         spherical_corners[..., 0], spherical_corners[..., 1], spherical_center)
-    x, y = forward_gnomonic_projection(
-        spherical_vert[..., 0], spherical_vert[..., 1], spherical_center)
+    x, y = forward_gnomonic_projection(spherical_vert[..., 0],
+                                       spherical_vert[...,
+                                                      1], spherical_center)
 
     # Re-normalize to the image dimensions
     dim = tangent_image_dim(base_order, sample_order)
@@ -235,3 +236,52 @@ def compute_icosahedron_face_mask(base_order, sample_order, face_idx=None):
         return torch.stack(masks, 0)
     else:
         return points_in_triangle_2d(xy_coords, vert_xy)
+
+
+def get_valid_coordinates(base_order,
+                          sample_order,
+                          face_idx,
+                          coordinates,
+                          return_mask=False):
+    """
+    Given a set of 2D pixel coordinates on the tangent image, returns only those that fall within the valid region
+
+    coordinates: N x 2
+
+    returns K x 2 (K <= N), and optionally the length-N boolean mask
+    """
+    # Project face vertices onto tangent image
+    vert_xy = face_corners_on_tangent_images(base_order, sample_order,
+                                             face_idx)
+
+    # Check which of the provided coordinates fall within that triangle
+    valid = points_in_triangle_2d(coordinates, vert_xy)
+
+    # Return the subset of points that are valid
+    if return_mask:
+        return coordinates[valid], valid
+    return coordinates[valid]
+
+
+def convert_tangent_image_coordinates_to_spherical(base_order, sample_order,
+                                                   tangent_img_idx, uv):
+    """
+    base_order: tangent image base order
+    sample_order: tangent image sample order
+    tangest_img_idx: which tangent image is this (i.e. which face of icosahedron)
+    uv: M x 2 matrix of pixel coordinates on tangent image
+    """
+
+    # Get the tangent points (i.e. center of each tangent image in spherical coordinates)
+    centers = convert_3d_to_spherical(tangent_image_centers(base_order))
+
+    # We will need the dimension and sample resolution of the tangent images for this computation
+    dim = tangent_image_dim(base_order, sample_order)
+    sample_resolution = get_sampling_resolution(base_order) / dim
+
+    # Convert UV coordinates to angular distance and shift them so the origin is at the center pixel
+    un = (uv[:, 0] - dim / 2.0) * sample_resolution + sample_resolution / 2.0
+    vn = (uv[:, 1] - dim / 2.0) * sample_resolution + sample_resolution / 2.0
+
+    # Return (lon, lat)
+    return inverse_gnomonic_projection(un, vn, centers[tangent_img_idx])

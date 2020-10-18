@@ -26,8 +26,8 @@ def renormalize(values, old_min, old_max, new_min, new_max):
     """
     Transforms values in range [old_min, old_max] to values in range [new_min, new_max]
     """
-    return (new_max - new_min) * (values - old_min) / (
-        old_max - old_min) + new_min
+    return (new_max - new_min) * (values - old_min) / (old_max -
+                                                       old_min) + new_min
 
 
 def convert_spherical_to_image(rad, shape):
@@ -128,8 +128,8 @@ def convert_spherical_to_cubemap_pixels(lonlat, cube_dim):
 
     returns: * x 2 (x,y)
     """
-    return convert_3d_to_cubemap_pixels(
-        convert_spherical_to_3d(lonlat), cube_dim)
+    return convert_3d_to_cubemap_pixels(convert_spherical_to_3d(lonlat),
+                                        cube_dim)
 
 
 def convert_spherical_to_cube_face(rad, cube_dim, polar=False):

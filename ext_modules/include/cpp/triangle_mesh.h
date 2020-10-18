@@ -423,7 +423,6 @@ PYBIND11_MODULE(TORCH_EXTENSION_NAME, m) {
       .def("get_face_tuples", &spherical::mesh::TriangleMesh::GetFaceTuples)
       .def("find_tangent_plane_intersections",
            &spherical::mesh::FindTangentPlaneIntersections)
-      .def("find_visible_keypoints", &spherical::mesh::FindVisibleKeypoints)
       .def("parameterized_image_grid",
            &spherical::mesh::ImageGrid::ParameterizedImageGrid);
 }
